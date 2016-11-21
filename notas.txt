@@ -1,0 +1,117 @@
+#################### Laravel 5 #########################
+
+Tutorial 1
+    Crear el proyecto
+        composer create-project --prefer-dist laravel/laravel app-laravel5
+        Crear base de datos y configurar .env para conexión con base de datos
+        Ejecutar migraciones
+            php artisan migrate --force
+
+Tutorial 2
+    Añadir dependencias a composer.json y ejecutar composer install
+            "tymon/jwt-auth": "0.5.*",
+            "barryvdh/laravel-cors": "^0.8.2",
+            "dingo/api": "1.0.*@dev"
+
+            https://github.com/tymondesigns/jwt-auth/wiki
+            https://github.com/barryvdh/laravel-cors
+            https://github.com/dingo/api/wiki
+    
+Tutorial 3
+    Añadir a config/app.php providers.
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        //este no se añade, es para orientar App\Providers\AppServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
+        Dingo\Api\Provider\LaravelServiceProvider::class
+
+    Añadir a config/app.php aliases
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class
+
+    Publicar jwt  
+        php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\JWTAuthServiceProvider"
+        php artisan vendor:publish --provider="Barryvdh\Cors\ServiceProvider"
+
+    Generar key jwt
+        php artisan jwt:generate
+
+Tutorial 4
+    Abrir archivo app/Http/Kernel.php y añadir a $routeMiddleware
+
+        'jwt.auth' => 'Tymon\JWTAuth\Middleware\GetUserFromToken',
+        'jwt.refresh' => 'Tymon\JWTAuth\Middleware\RefreshToken',
+
+Tutorial 5
+    Definir las rutas de la aplicación en el archivo routes/api.php utilizando Dingo
+
+Tutorial 6  
+    Abrir el archivo config/cors.php y exponer Authorization header
+    Abrir el archivo config/jwt.php y modificar ttl para 5 minutos, tiempo de vida del token
+    Info:
+        ttl => Tiempo de vida del token
+        refresh_ttl => Tiempo durante el que se podrá solicitar un nuevo refresh_token
+
+Tutorial 7
+    Crear controlador AuthenticationController php artisan make:controller AuthenticationController
+    Crear método login para primera generación de tokens
+
+Tutorial 8
+    Crear método signup para registrar nuevos usuarios
+
+Tutorial 9 
+    Crear controlador UserController php artisan make:controller UserController
+
+
+#################### Angular 2 #########################
+
+Tutorial 10
+    Explicar proyecto base Angular 2
+    Explicar dependencias instaladas
+
+    angular2-jwt -> https://github.com/auth0/angular2-jwt
+    ng2-pagination -> https://github.com/michaelbromley/ng2-pagination
+    angular2-logger -> no necesario -> https://github.com/code-chunks/angular2-logger
+
+Tutorial 11
+    Definir lógica de app/guard/auth_guard para acceso a aplicación
+
+Tutorial 12
+    Definir provider interceptor para interceptar todas las respuestas http a la app
+    y actualizar el token localstorage id_token en cada petición si es que existe
+
+Tutorial 13
+    Añadir canActivate y canActivateChild a app-routing
+
+Tutorial 14
+    Crear servicio Auth utilizando promesas para métodos signup y login
+
+Tutorial 15
+    Crear componente login, pegar css y html y escribir ts
+
+Tutorial 16
+    Crear componente signup, pegar html y escribir ts
+
+Tutorial 17
+    Definir navegación aplicación en app.component 
+
+Tutorial 18
+    Definir componente profile para decodificar token usuario
+
+Tutorial 19
+    Definir servicio UserService.ts con todos los métodos
+
+Tutorial 20
+    Definir UserListComponent.ts y pegar html para avanzar
+
+
+Tutorial 21
+    Definir UserAddComponent.ts y pegar html para avanzar
+
+Tutorial 22
+    Definir UserEditComponent.ts y pegar html para avanzar
+    
+Tutorial 23
+    Definir PaginatedComponent.ts
+
+Tutorial 24
+    Definir template PaginatedComponent.ts para crear paginación
